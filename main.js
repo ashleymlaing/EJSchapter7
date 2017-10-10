@@ -54,3 +54,42 @@ var directions = {
   "w": new Vector(-1,0),
   "nw": new Vector(-1,-1)
 };
+
+function randomElement(array) {
+  return array[Math.floor(Math.random() * array.length)];
+}
+
+var directionNames = "n ne e se s sw w nw".split(" ");
+
+function BouncingCritter() {
+  this.direction = randomElement(directionNames);
+};
+
+BouncingCritter.prototype.act = function(view){
+  if(view.look(this.direction) != " "){
+    this.direction = view.find(" ") || "s";
+  }
+  return {type: "move", direction: this.direction};
+};
+
+function elementFromChar(legend, ch) {
+  if (ch == " ") {
+    return null;
+  }
+  var element = new legend[ch]();
+  element.originChar = ch;
+  return element;
+}
+
+function World(map, legend) {
+  var grid = new Grid(map[0].length, map.length);
+  this.grid = grid;
+  this.legend = legend;
+
+  map.forEach(function(line, y) {
+    for (var x = 0; x < line.length; x++) {
+      grid.set(new Vector(x,y),
+        elementFromChar(legend, line[x]));
+    }
+  });
+}
