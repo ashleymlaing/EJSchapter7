@@ -35,3 +35,22 @@ function Grid(width, height){
 Grid.prototype.isInside = function (vector) {
   return vector.x >= 0 && vector.x < this.width && vector.y >= 0 && vector.y < this.height;
 };
+
+Grid.prototype.get = function (vector) {
+  return this.space[vector.x + this.width * vector.y];
+};
+
+Grid.prototype.set = function(vector, value) {
+  this.space[vector.x + this.width * vector.y] = value;
+};
+
+var directions = {
+  "n": new Vector(0,-1),
+  "ne": new Vector(1,-1),
+  "e": new Vector(1,0),
+  "se": new Vector(1,1),
+  "s": new Vector(0,1),
+  "sw": new Vector(-1,1),
+  "w": new Vector(-1,0),
+  "nw": new Vector(-1,-1)
+};
