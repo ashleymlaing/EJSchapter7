@@ -15,11 +15,19 @@ var plan =
 ];
 
 function drawInBrowser(picture){
-  for(var line = 0; line < picture.length; line++){
-    document.write("<pre>" + picture[line] + "</pre>");
+  $('.gameSpace').empty();
+  for (var line = 0; line < picture.length; line++) {
+    $('.gameSpace').append("<pre>"+ picture[line] +"</pre>")
   }
 }
-drawInBrowser(plan);
+$(document).ready(function(){
+  $('.stop').hide();
+  $('.start').on("click",function(){
+    $('.start').hide();
+    drawInBrowser(plan);
+    $('.stop').show();
+  });
+});
 
 function Vector(x,y) {
   this.x = x;
