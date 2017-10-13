@@ -14,6 +14,13 @@ var plan =
   "###########################"
 ];
 
+function drawInBrowser(picture){
+  for(var line = 0; line < picture.length; line++){
+    document.write("<pre>" + picture[line] + "</pre>");
+  }
+}
+drawInBrowser(plan);
+
 function Vector(x,y) {
   this.x = x;
   this.y = y;
