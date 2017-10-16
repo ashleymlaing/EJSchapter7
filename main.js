@@ -39,7 +39,7 @@ Vector.prototype.plus = function (other) {
 };
 
 var grid = ["top left","top middle", "top right", "bottom left", "bottom middle", "bottom right"];
-console.log(grid[2 + (1 * 3)]);
+// console.log(grid[2 + (1 * 3)]);
 
 function Grid(width, height){
   this.space = new Array(width * height);
