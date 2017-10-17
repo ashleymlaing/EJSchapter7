@@ -27,18 +27,23 @@ $(document).ready(function(){
   });
 });
 
+//setting coordinates
 function Vector(x,y) {
   this.x = x;
   this.y = y;
 }
-
+//add the x and y, to return a new Vector with updated coordinates
 Vector.prototype.plus = function (other) {
+  //TODO; a conditional to max x+x < 10 and y+y < 10
   return new Vector(this.x + other.x, this.y + other.y);
 };
+
 
 var grid = ["top left","top middle", "top right", "bottom left", "bottom middle", "bottom right"];
 // console.log(grid[2 + (1 * 3)]);
 
+
+//constructor for Grid
 function Grid(width, height){
   this.space = new Array(width * height);
   this.width = width;
