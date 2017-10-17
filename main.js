@@ -14,17 +14,15 @@ var plan =
   "###########################"
 ];
 
-function drawInBrowser(picture){
+function drawInBrowser(world){
   $('.gameSpace').empty();
-  for (var line = 0; line < picture.length; line++) {
-    $('.gameSpace').append("<pre>"+ picture[line] +"</pre>")
-  }
+  $('.gameSpace').append("<pre>"+world+"</pre>");
 }
 $(document).ready(function(){
   $('.stop').hide();
   $('.start').on("click",function(){
     $('.start').hide();
-    drawInBrowser(plan);
+    drawInBrowser(world.toString());
     $('.stop').show();
   });
 });
@@ -200,10 +198,11 @@ View.prototype.find = function(ch) {
   return randomElement(found);
 };
 
-for (var i = 0; i < 5; i++) {
-  world.turn();
-  console.log(world.toString());
-}
+// for (var i = 0; i < 5; i++) {
+//   world.turn();
+//   console.log(world.toString());
+//   drawInBrowser(world.toString());
+// }
 
 // animateWorld(world);
 
