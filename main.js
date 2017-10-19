@@ -14,18 +14,18 @@ var plan =
   "###########################"
 ];
 
-function drawInBrowser(world){
-  $('.gameSpace').empty();
-  $('.gameSpace').append("<pre>"+world+"</pre>");
-}
-$(document).ready(function(){
-  $('.stop').hide();
-  $('.start').on("click",function(){
-    $('.start').hide();
-    drawInBrowser(world.toString());
-    $('.stop').show();
-  });
-});
+// function drawInBrowser(world){
+//   $('.gameSpace').empty();
+//   $('.gameSpace').append("<pre>"+world+"</pre>");
+// }
+// $(document).ready(function(){
+//   $('.stop').hide();
+//   $('.start').on("click",function(){
+//     $('.start').hide();
+//     drawInBrowser(world.toString());
+//     $('.stop').show();
+//   });
+// });
 
 //setting coordinates
 function Vector(x,y) {
@@ -33,6 +33,7 @@ function Vector(x,y) {
   this.y = y;
 }
 //add the x and y, to return a new Vector with updated coordinates
+//Takes two Vector objects and adds together
 Vector.prototype.plus = function (other) {
   //TODO; a conditional to max x+x < 10 and y+y < 10
   return new Vector(this.x + other.x, this.y + other.y);
@@ -50,6 +51,7 @@ function Grid(width, height){
   this.height = height;
 }
 
+//Checking to see of the coordinates is inside the grid
 Grid.prototype.isInside = function (vector) {
   return vector.x >= 0 && vector.x < this.width && vector.y >= 0 && vector.y < this.height;
 };
@@ -62,6 +64,9 @@ Grid.prototype.set = function(vector, value) {
   this.space[vector.x + this.width * vector.y] = value;
 };
 
+//when used with Vector.plus it will add to the coordinates of the this.x and this,y
+
+//this will be the other in Vector.plus()
 var directions = {
   "n": new Vector(0,-1),
   "ne": new Vector(1,-1),
@@ -136,6 +141,7 @@ function Wall() {
 
 }
 
+//sets the legend into a world object and the plan array to create the world and how it looks
 var world = new World(plan, {"#":Wall, "o":BouncingCritter});
 
 console.log(world.toString());
@@ -203,13 +209,12 @@ View.prototype.find = function(ch) {
   return randomElement(found);
 };
 
-// for (var i = 0; i < 5; i++) {
-//   world.turn();
-//   console.log(world.toString());
-//   drawInBrowser(world.toString());
-// }
+for (var i = 0; i < 5; i++) {
+  world.turn();
+  console.log(world.toString());
+}
 
-// animateWorld(world);
+animateWorld(world);
 
 function dirPlus(dir, n) {
   var index = directionNames.indexOf(dir);
