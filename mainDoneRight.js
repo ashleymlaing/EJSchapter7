@@ -213,3 +213,9 @@ World.prototype.turn = function () {
 
 //sets the legend into a world object and the plan array to create the world and how it looks
 var world = new World(plan, {"#":Wall, "o":BouncingCritter});
+
+//this makes the turn function happen 4/5 times
+for (var i = 0; i < 5; i++) {
+  world.turn();
+  console.log(world.toString());
+}
