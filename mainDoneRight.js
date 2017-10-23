@@ -203,7 +203,7 @@ World.prototype.letAct = function(critter, vector) {
 World.prototype.turn = function () {
   var acted = [];
   this.grid.space.forEach(function(critter, vector) {
-    if (critter.act && acted.indexOf(critter) == -1) {
+    if (critter != null && critter.act && acted.indexOf(critter) == -1) {
       acted.push(critter);
       this.letAct(critter, vector);
     }
