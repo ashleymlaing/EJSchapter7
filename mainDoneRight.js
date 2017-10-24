@@ -48,6 +48,17 @@ Grid.prototype.set = function(vector, value) {
   this.space[vector.x + this.width * vector.y] = value;
 };
 
+Grid.prototype.forEach = function (f,context) {
+  for (var y = 0; y < this.height; y++) {
+    for (var x = 0; x < this.width; x++) {
+      var value =this.space[x + y * this.width];
+      if (value != null) {
+        f.call(context, value, new Vector(x,y));
+      }
+    }
+  }
+};
+
 //when used with Vector.plus it will add to the coordinates of the this.x and this,y
 
 //this will be the other in Vector.plus()
@@ -178,7 +189,7 @@ World.prototype.toString = function() {
 //
 
 World.prototype.checkDestination = function(action, vector) {
-  if (directions.hasOwnProperty(action,direction)) {
+  if (directions.hasOwnProperty(action.direction)) {
     var dest = vector.plus(directions[action.direction]);
     if (this.grid.isInside(dest)) {
       return dest;
@@ -202,8 +213,8 @@ World.prototype.letAct = function(critter, vector) {
 //checking to see if the critter has acted
 World.prototype.turn = function () {
   var acted = [];
-  this.grid.space.forEach(function(critter, vector) {
-    if (critter != null && critter.act && acted.indexOf(critter) == -1) {
+  this.grid.forEach(function(critter, vector) {
+    if (critter.act && acted.indexOf(critter) == -1) {
       acted.push(critter);
       this.letAct(critter, vector);
     }
@@ -215,7 +226,18 @@ World.prototype.turn = function () {
 var world = new World(plan, {"#":Wall, "o":BouncingCritter});
 
 //this makes the turn function happen 4/5 times
-for (var i = 0; i < 5; i++) {
-  world.turn();
-  console.log(world.toString());
-}
+// for (var i = 0; i < 5; i++) {
+//   world.turn();
+//   console.log(world.toString());
+// }
+var interval = null;
+$('.start').on('click',function(){
+  interval = setInterval(function(){
+    world.turn();
+    $('.gameSpace').html("<pre>"+world+"</pre>");
+  },400);
+});
+
+$('.stop').on('click',function(){
+  clearInterval(interval);
+});
