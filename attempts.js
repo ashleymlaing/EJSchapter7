@@ -225,7 +225,13 @@ World.prototype.turn = function () {
 //sets the legend into a world object and the plan array to create the world and how it looks
 var world = new World(plan, {"#":Wall, "o":BouncingCritter});
 
-//
+//this makes the turn function happen 4/5 times
+// for (var i = 0; i < 5; i++) {
+//   world.turn();
+//   console.log(world.toString());
+// }
+
+/*-----------------------------------------*/
 
 function dirPlus(dir, n) {
   var index = directionNames.indexOf(dir);
@@ -246,6 +252,19 @@ WallFollower.prototype.act = function(view) {
   }
   return {type: "move", direction: this.dir};
 };
+
+// animateWorld(new World(
+//   ["############",
+//    "#     #    #",
+//    "#   ~    ~ #",
+//    "#  ##      #",
+//    "#  ##  o####",
+//    "#          #",
+//    "############"],
+//   {"#": Wall,
+//    "~": WallFollower,
+//    "o": BouncingCritter}
+// ));
 
 function LifelikeWorld(map, legend) {
   World.call(this, map, legend);
@@ -310,7 +329,6 @@ actionTypes.reproduce = function(critter, vector, action) {
 function Plant() {
   this.energy = 3 + Math.random() * 4;
 }
-
 Plant.prototype.act = function(view) {
   if (this.energy > 15) {
     var space = view.find(" ");
@@ -324,7 +342,6 @@ Plant.prototype.act = function(view) {
 function PlantEater() {
   this.energy = 20;
 }
-
 PlantEater.prototype.act = function(view) {
   var space = view.find(" ");
   if (this.energy > 60 && space)
@@ -335,7 +352,6 @@ PlantEater.prototype.act = function(view) {
   if (space)
     return {type: "move", direction: space};
 };
-
 
 var valley = new LifelikeWorld(
   ["############################",
@@ -355,30 +371,13 @@ var valley = new LifelikeWorld(
    "*": Plant}
 );
 
-// animateWorld(new World(
-//   ["############",
-//    "#     #    #",
-//    "#   ~    ~ #",
-//    "#  ##      #",
-//    "#  ##  o####",
-//    "#          #",
-//    "############"],
-//   {"#": Wall,
-//    "~": WallFollower,
-//    "o": BouncingCritter}
-// ));
+/*-----------------------------------------*/
 
-
-//this makes the turn function happen 4/5 times
-// for (var i = 0; i < 5; i++) {
-//   world.turn();
-//   console.log(world.toString());
-// }
 var interval = null;
 $('.start').on('click',function(){
   interval = setInterval(function(){
-    valley.turn();
-    $('.gameSpace').html("<pre>"+valley+"</pre>");
+    valley.();
+    $('.gameSpace').html("<pre>"+world+"</pre>");
   },400);
 });
 

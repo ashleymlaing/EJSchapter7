@@ -214,7 +214,7 @@ for (var i = 0; i < 5; i++) {
   console.log(world.toString());
 }
 
-animateWorld(world);
+//animateWorld(world);
 
 function dirPlus(dir, n) {
   var index = directionNames.indexOf(dir);
@@ -236,18 +236,18 @@ WallFollower.prototype.act = function(view) {
   return {type: "move", direction: this.dir};
 };
 
-// animateWorld(new World(
-//   ["############",
-//    "#     #    #",
-//    "#   ~    ~ #",
-//    "#  ##      #",
-//    "#  ##  o####",
-//    "#          #",
-//    "############"],
-//   {"#": Wall,
-//    "~": WallFollower,
-//    "o": BouncingCritter}
-// ));
+animateWorld(new World(
+  ["############",
+   "#     #    #",
+   "#   ~    ~ #",
+   "#  ##      #",
+   "#  ##  o####",
+   "#          #",
+   "############"],
+  {"#": Wall,
+   "~": WallFollower,
+   "o": BouncingCritter}
+));
 
 function LifelikeWorld(map, legend) {
   World.call(this, map, legend);
