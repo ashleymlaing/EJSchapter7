@@ -343,13 +343,14 @@ function Tiger() {
 }
 
 Tiger.prototype.act = function(view){
-  var food = view.find("0");
+  var food = view.find("O");
   var space = view.find(" ");
+  var plant = view.find("*")
   if (food && space)
     return {type: "eat", direction: food};
   if (this.energy > 80 && space)
     return {type: "reproduce", direction: space};
-  if (space)
+  if (space || plant)
     return {type: "move", direction: space};
 };
 
