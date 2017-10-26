@@ -325,17 +325,33 @@ function PlantEater() {
   this.energy = 20;
 }
 
+//rearranged for the smartPlantEater
+
 PlantEater.prototype.act = function(view) {
-  var space = view.find(" ");
-  if (this.energy > 60 && space)
-    return {type: "reproduce", direction: space};
   var plant = view.find("*");
-  if (plant)
+  var space = view.find(" ");
+  if (plant && space)
     return {type: "eat", direction: plant};
+  if (this.energy > 100 && space)
+    return {type: "reproduce", direction: space};
   if (space)
     return {type: "move", direction: space};
 };
 
+function Tiger() {
+  this.energy = 60;
+}
+
+Tiger.prototype.act = function(view){
+  var food = view.find("0");
+  var space = view.find(" ");
+  if (food && space)
+    return {type: "eat", direction: food};
+  if (this.energy > 80 && space)
+    return {type: "reproduce", direction: space};
+  if (space)
+    return {type: "move", direction: space};
+};
 
 var valley = new LifelikeWorld(
   ["############################",
@@ -352,6 +368,31 @@ var valley = new LifelikeWorld(
    "############################"],
   {"#": Wall,
    "O": PlantEater,
+   "*": Plant}
+);
+
+var animalKingdom = new LifelikeWorld(
+  ["####################################################",
+  "#                 ####         ****              ###",
+  "#   *  @  ##                 ########       OO    ##",
+  "#   *    ##        O O                 ****       *#",
+  "#       ##*                        ##########     *#",
+  "#      ##***  *         ****                     **#",
+  "#* **  #  *  ***      #########                  **#",
+  "#* **  #      *               #   *              **#",
+  "#     ##              #   O   #  ***          ######",
+  "#*            @       #       #   *        O  #    #",
+  "#*                    #  ######                 ** #",
+  "###          ****          ***                  ** #",
+  "#       O                        @         O       #",
+  "#   *     ##  ##  ##  ##               ###      *  #",
+  "#   **         #              *       #####  O     #",
+  "##  **  O   O  #  #    ***  ***        ###      ** #",
+  "###               #   *****                    ****#",
+  "####################################################"],
+  {"#": Wall,
+   "@": Tiger,
+   "O": PlantEater, // from previous exercise
    "*": Plant}
 );
 
@@ -377,8 +418,8 @@ var valley = new LifelikeWorld(
 var interval = null;
 $('.start').on('click',function(){
   interval = setInterval(function(){
-    valley.turn();
-    $('.gameSpace').html("<pre>"+valley+"</pre>");
+    animalKingdom.turn();
+    $('.gameSpace').html("<pre>"+animalKingdom+"</pre>");
   },400);
 });
 
