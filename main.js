@@ -417,6 +417,7 @@ var animalKingdom = new LifelikeWorld(
 //   console.log(world.toString());
 // }
 var interval = null;
+var turns = 0;
 // $('.start').on('click',function(){
 //   interval = setInterval(function(){
 //     animalKingdom.turn();
@@ -431,7 +432,8 @@ document.getElementsByClassName('start')[0].onclick = function(){
   alert("start");
   interval = setInterval(function(){
     animalKingdom.turn();
-    document.getElementById('gameSpace').innerHTML= "<pre>" + animalKingdom + "</pre>";
+    turns++;
+    document.getElementById('gameSpace').innerHTML= "<pre>" + animalKingdom + "</pre>" + "<p>Turns:  <span>" + turns + "</span></p>" ;
   },400);
 }
 
