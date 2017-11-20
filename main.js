@@ -331,7 +331,7 @@ actionTypes.reproduce = function(critter, vector, action) {
 };
 
 function Plant() {
-  this.energy = 3 + Math.random() * 4;
+  this.energy = 2 + Math.random() * 2;
 }
 
 Plant.prototype.act = function(view) {
@@ -340,12 +340,12 @@ Plant.prototype.act = function(view) {
     if (space)
       return {type: "reproduce", direction: space};
   }
-  if (this.energy < 20)
+  if (this.energy < 40)
     return {type: "grow"};
 };
 
 function PlantEater() {
-  this.energy = 20;
+  this.energy = 30;
 }
 
 //rearranged for the smartPlantEater
@@ -355,7 +355,7 @@ PlantEater.prototype.act = function(view) {
   var space = view.find(" ");
   if (plant && space)
     return {type: "eat", direction: plant};
-  if (this.energy > 100 && space)
+  if (this.energy > 60 && space)
     return {type: "reproduce", direction: space};
   if (space)
     return {type: "move", direction: space};
@@ -377,7 +377,7 @@ PlantEater.prototype.act = function(view) {
 // }
 
 function Tiger() {
-  this.energy = 60;
+  this.energy = 50;
 }
 
 Tiger.prototype.act = function(view){
@@ -386,7 +386,7 @@ Tiger.prototype.act = function(view){
   var plant = view.find("*")
   if (food && space)
     return {type: "eat", direction: food};
-  if (this.energy > 80 && space)
+  if (this.energy > 60 && space)
     return {type: "reproduce", direction: space};
   if (space || plant)
     return {type: "move", direction: space};
