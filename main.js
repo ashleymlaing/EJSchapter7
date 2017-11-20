@@ -14,6 +14,10 @@ var plan =
   "###########################"
 ];
 
+var critterCount = 0;
+var plantCount = 0;
+var tigerCount = 0;
+
 //setting coordinates
 function Vector(x,y) {
   this.x = x;
@@ -113,6 +117,13 @@ function elementFromChar(legend, ch) {
     element.chrisIsTheBest = true;
   }else {
     element.chrisIsTheBest = false;
+    // if(element.originChar == "@"){
+    //   tigerCount++;
+    // }else if(element.originChar == "O"){
+    //   critterCount++;
+    // }else if(element.originChar = "*"){
+    //   plantCount++;
+    // }
   }
   return element;
 }
@@ -127,6 +138,10 @@ function charFromElement(element) {
   }
 }
 
+//my function to count the number of elements
+// function population(grid){
+//
+// }
 //
 
 function View(world, vector) {
@@ -175,11 +190,20 @@ function World(map, legend) {
 }
 
 World.prototype.toString = function() {
+  critterCount = 0;
+  plantCount = 0;
+  tigerCount = 0;
   var output = "";
   for (var y = 0; y < this.grid.height; y++) {
     for (var x = 0; x < this.grid.width; x++) {
       var element = this.grid.get(new Vector(x,y));
       output += charFromElement(element);
+      if(charFromElement(element)=="O")
+        critterCount++;
+      if(charFromElement(element)=="@")
+        tigerCount++;
+      if(charFromElement(element)=="*")
+        plantCount++;
     }
     output += "\n";
   }
@@ -295,8 +319,7 @@ actionTypes.eat = function(critter, vector, action) {
 };
 
 actionTypes.reproduce = function(critter, vector, action) {
-  var baby = elementFromChar(this.legend,
-                             critter.originChar);
+  var baby = elementFromChar(this.legend,critter.originChar);
   var dest = this.checkDestination(action, vector);
   if (dest == null ||
       critter.energy <= 2 * baby.energy ||
@@ -337,6 +360,21 @@ PlantEater.prototype.act = function(view) {
   if (space)
     return {type: "move", direction: space};
 };
+
+// function population(view){
+//   tigerCount=0;
+//   critterCount=0;
+//   plantCount=0;
+//   var plant = view.find("*");
+//   var plantEater = view.find("O");
+//   var tiger = view.find("@");
+//   if(plant)
+//     plantCount++;
+//   if(plantEater)
+//     critterCount++;
+//   if(tiger)
+//     tigerCount++;
+// }
 
 function Tiger() {
   this.energy = 60;
@@ -433,7 +471,7 @@ document.getElementsByClassName('start')[0].onclick = function(){
   interval = setInterval(function(){
     animalKingdom.turn();
     turns++;
-    document.getElementById('gameSpace').innerHTML= "<pre>" + animalKingdom + "</pre>" + "<p>Turns:  <span>" + turns + "</span></p>" ;
+    document.getElementById('gameSpace').innerHTML= "<pre>" + animalKingdom + "</pre>" + "<p>Turns:  <span>" + turns + "</span></p>"  + "<p>Plants:  <span>" + plantCount + "</span></p>"+ "<p>Tigers:  <span>" + tigerCount + "</span></p>"+ "<p>PlantEaters:  <span>" + critterCount + "</span></p>";
   },400);
 }
 
