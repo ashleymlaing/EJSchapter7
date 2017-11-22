@@ -335,12 +335,12 @@ function Plant() {
 }
 
 Plant.prototype.act = function(view) {
-  if (this.energy > 15) {
+  if (this.energy > 20) {
     var space = view.find(" ");
     if (space)
       return {type: "reproduce", direction: space};
   }
-  if (this.energy < 40)
+  if (this.energy < 70)
     return {type: "grow"};
 };
 
@@ -355,7 +355,7 @@ PlantEater.prototype.act = function(view) {
   var space = view.find(" ");
   if (plant && space)
     return {type: "eat", direction: plant};
-  if (this.energy > 60 && space)
+  if (this.energy > 40 && space)
     return {type: "reproduce", direction: space};
   if (space)
     return {type: "move", direction: space};
@@ -384,10 +384,16 @@ Tiger.prototype.act = function(view){
   var food = view.find("O");
   var space = view.find(" ");
   var plant = view.find("*")
-  if (food && space)
+  if (food && space){
     return {type: "eat", direction: food};
-  if (this.energy > 60 && space)
+  if (this.energy < 50)
+    return {type: "grow"};
+  }
+  if (this.energy > 50 && space){
     return {type: "reproduce", direction: space};
+  if (this.energy < 20)
+    return {type: "grow"};
+  }
   if (space || plant)
     return {type: "move", direction: space};
 };
@@ -472,7 +478,7 @@ document.getElementsByClassName('start')[0].onclick = function(){
     animalKingdom.turn();
     turns++;
     document.getElementById('gameSpace').innerHTML= "<pre>" + animalKingdom + "</pre>" + "<p>Turns:  <span>" + turns + "</span></p>"  + "<p>Plants:  <span>" + plantCount + "</span></p>"+ "<p>Tigers:  <span>" + tigerCount + "</span></p>"+ "<p>PlantEaters:  <span>" + critterCount + "</span></p>";
-  },400);
+  },200);
 }
 
 document.getElementsByClassName('stop')[0].onclick = function(){
