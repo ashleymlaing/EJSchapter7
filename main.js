@@ -473,7 +473,6 @@ var turns = 0;
 //   clearInterval(interval);
 // });
 document.getElementsByClassName('start')[0].onclick = function(){
-  alert("start");
   interval = setInterval(function(){
     animalKingdom.turn();
     turns++;
@@ -482,6 +481,5 @@ document.getElementsByClassName('start')[0].onclick = function(){
 }
 
 document.getElementsByClassName('stop')[0].onclick = function(){
-  alert("stop");
   clearInterval(interval);
 }
