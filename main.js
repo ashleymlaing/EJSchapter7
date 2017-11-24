@@ -383,7 +383,8 @@ function Tiger() {
 Tiger.prototype.act = function(view){
   var food = view.find("O");
   var space = view.find(" ");
-  var plant = view.find("*")
+  var plant = view.find("*");
+  var tiger = view.find("@");
   if (food && space){
     return {type: "eat", direction: food};
   if (this.energy > 100)
@@ -396,8 +397,10 @@ Tiger.prototype.act = function(view){
   }
   if (space)
     return {type: "move", direction: space};
+  if (tiger){
+    return {type: "move", direction: space || plant};
+  }
   if(plant){
-    return {type: "eat", direction: plant};
     return {type: "move", direction: plant};
   }
 };
