@@ -335,17 +335,17 @@ function Plant() {
 }
 
 Plant.prototype.act = function(view) {
-  if (this.energy > 20) {
+  if (this.energy > 15) {
     var space = view.find(" ");
     if (space)
       return {type: "reproduce", direction: space};
   }
-  if (this.energy < 70)
+  if (this.energy < 40)
     return {type: "grow"};
 };
 
 function PlantEater() {
-  this.energy = 30;
+  this.energy = 40;
 }
 
 //rearranged for the smartPlantEater
@@ -377,7 +377,7 @@ PlantEater.prototype.act = function(view) {
 // }
 
 function Tiger() {
-  this.energy = 50;
+  this.energy = 80;
 }
 
 Tiger.prototype.act = function(view){
@@ -386,7 +386,7 @@ Tiger.prototype.act = function(view){
   var plant = view.find("*")
   if (food && space){
     return {type: "eat", direction: food};
-  if (this.energy < 50)
+  if (this.energy > 100)
     return {type: "grow"};
   }
   if (this.energy > 50 && space){
@@ -394,8 +394,12 @@ Tiger.prototype.act = function(view){
   if (this.energy < 20)
     return {type: "grow"};
   }
-  if (space || plant)
+  if (space)
     return {type: "move", direction: space};
+  if(plant){
+    return {type: "eat", direction: plant};
+    return {type: "move", direction: plant};
+  }
 };
 
 var valley = new LifelikeWorld(
@@ -477,7 +481,15 @@ document.getElementsByClassName('start')[0].onclick = function(){
     animalKingdom.turn();
     turns++;
     document.getElementById('gameSpace').innerHTML= "<pre>" + animalKingdom + "</pre>" + "<p>Turns:  <span>" + turns + "</span></p>"  + "<p>Plants:  <span>" + plantCount + "</span></p>"+ "<p>Tigers:  <span>" + tigerCount + "</span></p>"+ "<p>PlantEaters:  <span>" + critterCount + "</span></p>";
-  },200);
+    if(
+      // turns >= 100 ||
+       critterCount == 0
+    || plantCount == 0
+    || tigerCount == 0
+  ){
+      clearInterval(interval);
+    }
+  },20);
 }
 
 document.getElementsByClassName('stop')[0].onclick = function(){
