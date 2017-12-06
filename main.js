@@ -430,7 +430,7 @@ document.getElementsByClassName("start")[0].onclick = function(){
 		turns++;
 		document.getElementById("gameSpace").innerHTML= "<pre>" + animalKingdom + "</pre>" + "<p>Turns:  <span>" + turns + "</span></p>"  + "<p>Plants:  <span>" + plantCount + "</span></p>"+ "<p>Tigers:  <span>" + tigerCount + "</span></p>"+ "<p>PlantEaters:  <span>" + critterCount + "</span></p>";
 		if(
-		// turns >= 100 ||
+		// turns >= 1000 ||
 			critterCount == 0
     || plantCount == 0
     || tigerCount == 0
