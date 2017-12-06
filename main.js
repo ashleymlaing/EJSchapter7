@@ -117,13 +117,6 @@ function elementFromChar(legend, ch) {
 		element.chrisIsTheBest = true;
 	}else {
 		element.chrisIsTheBest = false;
-		// if(element.originChar == "@"){
-		//   tigerCount++;
-		// }else if(element.originChar == "O"){
-		//   critterCount++;
-		// }else if(element.originChar = "*"){
-		//   plantCount++;
-		// }
 	}
 	return element;
 }
@@ -138,11 +131,6 @@ function charFromElement(element) {
 	}
 }
 
-//my function to count the number of elements
-// function population(grid){
-//
-// }
-//
 
 function View(world, vector) {
 	this.world = world;
@@ -361,21 +349,6 @@ PlantEater.prototype.act = function(view) {
 		return {type: "move", direction: space};
 };
 
-// function population(view){
-//   tigerCount=0;
-//   critterCount=0;
-//   plantCount=0;
-//   var plant = view.find("*");
-//   var plantEater = view.find("O");
-//   var tiger = view.find("@");
-//   if(plant)
-//     plantCount++;
-//   if(plantEater)
-//     critterCount++;
-//   if(tiger)
-//     tigerCount++;
-// }
-
 function Tiger() {
 	this.energy = 80;
 }
@@ -448,37 +421,9 @@ var animalKingdom = new LifelikeWorld(
 		"*": Plant}
 );
 
-// animateWorld(new World(
-//   ["############",
-//    "#     #    #",
-//    "#   ~    ~ #",
-//    "#  ##      #",
-//    "#  ##  o####",
-//    "#          #",
-//    "############"],
-//   {"#": Wall,
-//    "~": WallFollower,
-//    "o": BouncingCritter}
-// ));
-
-
-//this makes the turn function happen 4/5 times
-// for (var i = 0; i < 5; i++) {
-//   world.turn();
-//   console.log(world.toString());
-// }
 var interval = null;
 var turns = 0;
-// $('.start').on('click',function(){
-//   interval = setInterval(function(){
-//     animalKingdom.turn();
-//     $('.gameSpace').html("<pre>"+animalKingdom+"</pre>");
-//   },400);
-// });
-//
-// $('.stop').on('click',function(){
-//   clearInterval(interval);
-// });
+
 document.getElementsByClassName("start")[0].onclick = function(){
 	interval = setInterval(function(){
 		animalKingdom.turn();
