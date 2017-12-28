@@ -1,0 +1,26 @@
+{
+  "name": "EJSchapter7",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ashleymlaing/EJSchapter7.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ashleymlaing/EJSchapter7/issues"
+  },
+  "homepage": "https://github.com/ashleymlaing/EJSchapter7#readme",
+  "devDependencies": {
+    "webpack": "^3.10.0"
+  },
+  "scripts": {
+    "build": "webpack"
+  }
+}
